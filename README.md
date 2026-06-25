@@ -1,19 +1,36 @@
 # Agent Reservable Composition
 
-> Experimental validation suite for deterministic protocol composition around **ERC-8060 Reservable** and interoperable Ethereum protocol layers.
+> Research validation suite for deterministic protocol composition around **ERC-8060 Reservable** and interoperable Ethereum protocol layers.
 
-[![CI](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml/badge.svg)](../../actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+**CI** • **MIT License** • **DOI (coming soon via Zenodo)**
+
+---
+
+# Status
+
+**Project status:** Active research
+
+This repository is actively maintained as an empirical validation suite exploring deterministic protocol composition around ERC-8060 Reservable.
 
 ---
 
 # Overview
 
-This repository is an experimental research and validation suite exploring how **ERC-8060 Reservable** composes with complementary Ethereum protocol proposals while preserving deterministic accounting.
+This repository is a research and validation suite exploring how **ERC-8060 Reservable** composes with complementary Ethereum protocol proposals while preserving deterministic accounting.
 
 Its purpose is to empirically validate that logically independent protocol layers—including authority delegation, provenance, workflow execution, settlement and reservable accounting—can compose without violating accounting invariants.
 
-This repository is intended as a **research and validation suite**, not as a production implementation or canonical reference implementation of any individual ERC.
+This repository is intended as a research and validation suite, **not** as a production implementation or canonical reference implementation of any individual ERC.
+
+---
+
+# Why this repository?
+
+Many Ethereum proposals define protocol layers independently.
+
+This repository explores whether independent protocol abstractions can compose while preserving deterministic accounting, workflow isolation, replay safety and modularity.
+
+Rather than defining new protocol behavior, it provides empirical evidence that independent protocol layers can interoperate safely.
 
 ---
 
@@ -56,20 +73,20 @@ Each layer is intentionally designed to remain logically independent while parti
 
 # Composition Architecture
 
-```
-                 Agent Identity
-                       │
-               Authority Envelope
-                       │
-               Workflow Execution
-                       │
-                 Settlement Layer
-                       │
-               ERC-8060 Reservable
-                       │
-         Deterministic Accounting Layer
-                       │
-          Composition Invariant Checker
+```text
+          Agent Identity
+                │
+        Authority Envelope
+                │
+       Workflow Execution
+                │
+        Settlement Layer
+                │
+      ERC-8060 Reservable
+                │
+   Deterministic Accounting
+                │
+ Composition Invariant Checker
 ```
 
 Every layer owns its own state while exposing deterministic interfaces to adjacent layers.
@@ -78,7 +95,7 @@ Every layer owns its own state while exposing deterministic interfaces to adjace
 
 # Repository Structure
 
-```
+```text
 contracts/
 ├── AgentIdentityProvenanceHarness.sol
 ├── AgentReservableIntegrationHarness.sol
@@ -99,9 +116,20 @@ test/
 ├── workflow
 └── integration
 
+docs/
+├── architecture.md
+├── accounting.md
+└── workflow.md
+
 .github/workflows/
 └── ci.yml
 ```
+
+---
+
+# Documentation
+
+Additional technical documentation is available under the `docs/` directory.
 
 ---
 
@@ -132,14 +160,14 @@ The repository includes a comprehensive empirical validation suite covering:
 
 Current validation status:
 
-```
+```text
 251 passing
 0 failing
 ```
 
 Coverage:
 
-```
+```text
 Statements : 100%
 Functions  : 100%
 Lines      : 100%
@@ -156,19 +184,19 @@ The validation suite continuously verifies the following invariants.
 
 ## Embedded Value
 
-```
+```text
 lockedValue + availableValue == totalValue
 ```
 
 ## Authority
 
-```
+```text
 consumed <= authorityLimit
 ```
 
 ## Settlement
 
-```
+```text
 settled <= reserved
 ```
 
@@ -215,13 +243,13 @@ Both examples compose directly with `IERC8060Reservable` without modifying the r
 
 Gas usage is automatically generated through:
 
-```
+```text
 hardhat-gas-reporter
 ```
 
 Compiler configuration:
 
-```
+```text
 Solidity 0.8.20
 Optimizer enabled
 Runs: 200
