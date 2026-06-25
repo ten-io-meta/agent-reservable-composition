@@ -1,23 +1,38 @@
-[![CI](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml/badge.svg)](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml)
-
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
 # Agent Reservable Composition
 
-This repository is an experimental composition and validation suite exploring interoperability between **ERC-8060 Reservable** and complementary Ethereum protocol proposals.
+> Experimental validation suite for deterministic protocol composition around **ERC-8060 Reservable** and interoperable Ethereum protocol layers.
 
-Its purpose is to empirically validate that independent protocol layers—including authority delegation, provenance, workflow execution, settlement and reservable accounting—can compose while preserving deterministic accounting invariants.
-
-It is intended as a research and validation suite rather than a production implementation or reference implementation of any individual ERC.
+[![CI](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml/badge.svg)](../../actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
 # Overview
 
-This repository demonstrates how **ERC-8060 Reservable** can be composed with higher-level protocol layers while preserving strict accounting invariants and separation of responsibilities.
+This repository is an experimental research and validation suite exploring how **ERC-8060 Reservable** composes with complementary Ethereum protocol proposals while preserving deterministic accounting.
 
+Its purpose is to empirically validate that logically independent protocol layers—including authority delegation, provenance, workflow execution, settlement and reservable accounting—can compose without violating accounting invariants.
 
-The composition includes the following layers:
+This repository is intended as a **research and validation suite**, not as a production implementation or canonical reference implementation of any individual ERC.
+
+---
+
+# Goals
+
+The primary objective is to demonstrate that protocol composition can remain:
+
+* Deterministic
+* Modular
+* Verifiable
+* Accounting-safe
+* Replay-safe
+* Layer-independent
+
+while allowing higher-level protocols to interoperate through well-defined interfaces.
+
+---
+
+# Protocol Stack
 
 | Layer              | Purpose                       |
 | ------------------ | ----------------------------- |
@@ -35,7 +50,29 @@ The composition includes the following layers:
 | ERC-8060           | Embedded native value         |
 | IERC8060Reservable | Reservable accounting layer   |
 
-The goal is to demonstrate that these layers remain logically independent while composing into a deterministic workflow.
+Each layer is intentionally designed to remain logically independent while participating in a deterministic workflow.
+
+---
+
+# Composition Architecture
+
+```
+                 Agent Identity
+                       │
+               Authority Envelope
+                       │
+               Workflow Execution
+                       │
+                 Settlement Layer
+                       │
+               ERC-8060 Reservable
+                       │
+         Deterministic Accounting Layer
+                       │
+          Composition Invariant Checker
+```
+
+Every layer owns its own state while exposing deterministic interfaces to adjacent layers.
 
 ---
 
@@ -43,26 +80,34 @@ The goal is to demonstrate that these layers remain logically independent while 
 
 ```
 contracts/
-    AgentIdentityProvenanceHarness.sol
-    AgentReservableIntegrationHarness.sol
-    AgentWorkflowCompositionHarness.sol
-    CompositionAccountingDemo.sol
-    CompositionInvariantChecker.sol
-    ERC8060ReservableMock.sol
-    IERC8060Reservable.sol
-    MinimalReservableEscrow.sol
-    ReservableNFTDemo.sol
-    TimedReservableEscrow.sol
+├── AgentIdentityProvenanceHarness.sol
+├── AgentReservableIntegrationHarness.sol
+├── AgentWorkflowCompositionHarness.sol
+├── CompositionAccountingDemo.sol
+├── CompositionInvariantChecker.sol
+├── ERC8060ReservableMock.sol
+├── IERC8060Reservable.sol
+├── MinimalReservableEscrow.sol
+├── ReservableNFTDemo.sol
+├── TimedReservableEscrow.sol
 
 test/
-    ...
+├── accounting
+├── adversarial
+├── composition
+├── escrow
+├── workflow
+└── integration
+
+.github/workflows/
+└── ci.yml
 ```
 
 ---
 
 # Validation Suite
 
-The repository contains a comprehensive empirical validation suite including:
+The repository includes a comprehensive empirical validation suite covering:
 
 * Full lifecycle execution
 * Differential testing
@@ -83,7 +128,7 @@ The repository contains a comprehensive empirical validation suite including:
 
 ---
 
-# Test Results
+# Validation Results
 
 Current validation status:
 
@@ -101,13 +146,13 @@ Lines      : 100%
 Branches   : 77.72%
 ```
 
-The remaining uncovered branches correspond primarily to defensive and revert-only execution paths typical of Solidity contracts.
+The remaining uncovered branches correspond primarily to defensive and revert-only execution paths commonly found in Solidity contracts.
 
 ---
 
 # Accounting Invariants
 
-The following invariants are continuously verified throughout the suite.
+The validation suite continuously verifies the following invariants.
 
 ## Embedded Value
 
@@ -141,40 +186,40 @@ Workflow settlement never mutates:
 
 # Composition Properties
 
-The suite demonstrates:
+The suite demonstrates that:
 
 * Reservation does not mutate authority accounting.
 * Consumption does not mutate reservable accounting.
 * Settlement remains bounded by reserved value.
-* Workflow state progresses monotonically.
+* Workflow progresses monotonically.
 * Identity remains immutable throughout settlement.
 * Independent workflows remain isolated.
-* Independent token/asset domains remain isolated.
-* Replay produces deterministic logical results.
+* Independent assets remain isolated.
+* Replay execution produces deterministic results.
 * Long-running executions preserve accounting invariants.
 
 ---
 
 # Escrow Examples
 
-Included examples:
+Included reference implementations:
 
 * Minimal Reservable Escrow
 * Timed Reservable Escrow
 
-Both compose directly with IERC8060Reservable without modifying the reservable accounting model.
+Both examples compose directly with `IERC8060Reservable` without modifying the reservable accounting model.
 
 ---
 
-# Gas Report
+# Gas Reporting
 
-Gas usage is automatically generated using:
+Gas usage is automatically generated through:
 
 ```
 hardhat-gas-reporter
 ```
 
-Optimizer configuration:
+Compiler configuration:
 
 ```
 Solidity 0.8.20
@@ -184,7 +229,7 @@ Runs: 200
 
 ---
 
-# Running the Suite
+# Running Locally
 
 Install dependencies:
 
@@ -192,7 +237,7 @@ Install dependencies:
 npm install
 ```
 
-Run tests:
+Run the validation suite:
 
 ```bash
 npx hardhat test
@@ -214,11 +259,12 @@ npx hardhat test
 
 # Design Philosophy
 
-ERC-8060 Reservable intentionally separates:
+ERC-8060 Reservable intentionally separates four independent concerns:
 
-* reservation
-* consumption
-* settlement
+* Reservation
+* Consumption
+* Settlement
+* Accounting
 
 Reservation is an accounting primitive.
 
@@ -226,10 +272,28 @@ Consumption is measured independently.
 
 Settlement is an application-layer decision.
 
-This separation allows higher-level protocols to compose safely while preserving deterministic accounting.
+Accounting remains deterministic throughout the entire workflow.
+
+This separation enables protocol composition without coupling independent layers or violating accounting guarantees.
+
+---
+
+# Research Scope
+
+This repository explores interoperability between reservable accounting and higher-level protocol layers.
+
+It does **not** define normative behavior for the referenced ERC proposals.
+
+Instead, it provides empirical evidence that independent protocol layers can compose while preserving deterministic accounting invariants.
+
+---
+
+# Citation
+
+If this repository contributes to academic or technical work, please cite it using the included `CITATION.cff` metadata.
 
 ---
 
 # License
 
-MIT
+Released under the MIT License.
