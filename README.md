@@ -1,3 +1,7 @@
+[![CI](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml/badge.svg)](https://github.com/ten-io-meta/agent-reservable-composition/actions/workflows/ci.yml)
+
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
 # Agent Reservable Composition
 
 This repository is an experimental composition and validation suite exploring interoperability between **ERC-8060 Reservable** and complementary Ethereum protocol proposals.
