@@ -1,9 +1,12 @@
 # Agent Reservable Composition
+
 Experimental research on deterministic protocol composition and interoperability for Ethereum.
 
 > Research validation suite for deterministic protocol composition around **ERC-8060 Reservable** and interoperable Ethereum protocol layers.
 
-**CI** • **MIT License** • **DOI (coming soon via Zenodo)**
+**CI** • **MIT License**
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20849578.svg)](https://doi.org/10.5281/zenodo.20849578)
 
 ---
 
