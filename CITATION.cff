@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+
+title: "Agent Reservable Composition"
+
+message: >
+  If you use this repository in research,
+  please cite it using the metadata below.
+
+type: software
+
+authors:
+  - family-names: "TEN.IO"
+    given-names: "Research"
+
+repository-code: "https://github.com/ten-io-meta/agent-reservable-composition"
+
+url: "https://github.com/ten-io-meta/agent-reservable-composition"
+
+license: MIT
+
+version: "1.0.0"
+
+date-released: "2026-06-25"
+
+abstract: >
+  Experimental validation suite demonstrating deterministic
+  composition between ERC-8060 Reservable and complementary
+  Ethereum protocol proposals including workflow execution,
+  authority delegation, provenance, settlement and embedded
+  value accounting.
