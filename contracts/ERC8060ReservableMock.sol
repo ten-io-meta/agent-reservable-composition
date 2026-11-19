@@ -3,6 +3,12 @@ pragma solidity ^0.8.20;
 
 import "./IERC8060Reservable.sol";
 
+/// @notice UNBACKED ACCOUNTING MOCK FOR LOCAL TESTS ONLY.
+/// @dev Not ERC-721 compliant and not strict ERC-8060 native-ETH collateral.
+///      mintToken is permissionless and mintValue can record arbitrary value
+///      WITHOUT ETH deposits. withdraw changes a ledger, not native ETH payouts.
+///      This model MUST NOT be deployed with funds, used as lender collateral,
+///      advertised as solvent, or admitted as an OECL authenticated ETH asset.
 contract ERC8060ReservableMock is IERC8060Reservable {
     mapping(uint256 => address) private _owners;
     mapping(uint256 => mapping(address => uint256)) private _totalValue;
