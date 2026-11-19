@@ -1,5 +1,7 @@
 # Agent Reservable Composition
 
+> **Security: research simulations only.** This repository includes ERC8060ReservableMock, which records token value without ETH deposits. It is NOT an ETH-backed ERC-8060 NFT or evidence of executable creditor rights. See [simulation trust boundaries](docs/security/simulation-mocks-not-collateral.md).
+
 Experimental research on deterministic protocol composition and interoperability for Ethereum.
 
 > Research validation suite for deterministic protocol composition around **ERC-8060 Reservable** and interoperable Ethereum protocol layers.
